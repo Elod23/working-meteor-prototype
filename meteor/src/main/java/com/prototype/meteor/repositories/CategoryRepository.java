@@ -6,13 +6,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.prototype.meteor.entities.Category;
+import com.prototype.meteor.entities.Product;
 
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	
+	Category findByCategoryId(Integer categoryId);
+	
 	List<Category> findByName(String name);
 	
+	List<Category> findByNameIgnoreCase(String name);
+	
+	List<Category> findByNameIgnoreCaseLike(String name);
+	
 	List<Category> findByDescriptionIgnoreCase(String description);
+	
+	List<Category> findByDescriptionIgnoreCaseLike(String description);
+	
+	List<Category> findByProduct(Product proudct);
+	
+	Category findByProductList(List<Product> products);
 
 }

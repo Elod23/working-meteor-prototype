@@ -65,9 +65,8 @@ public class ShoppingCart {
 		this.shoppingCartStatus = shoppingCartStatus;
 	}
 
-	public void addProduct(OrderedProduct product) {
-		CartProduct cartProduct = new CartProduct(this, product, product.getQuantity());
-		products.add(cartProduct);
+	public void addProduct(CartProduct product) {
+		products.add(product);
 	}
 	
 	public void removeProduct(OrderedProduct product) {

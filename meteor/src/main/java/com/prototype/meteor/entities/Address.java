@@ -38,24 +38,20 @@ public class Address {
 	@NotNull
 	@Column(name = "number")
 	private int number;
-	
+
 	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private Customer customer;
 
 	@OneToMany(mappedBy = "billingAddress", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> ordersWithBillingAddress = new ArrayList<>();
-	
+
 	public Customer getCustomer() {
 		return customer;
 	}
-	
-	
 
 	public List<Order> getOrdersWithBillingAddress() {
 		return ordersWithBillingAddress;
 	}
-
-
 
 	public void setOrdersWithBillingAddress(List<Order> ordersWithBillingAddress) {
 		this.ordersWithBillingAddress = ordersWithBillingAddress;

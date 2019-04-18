@@ -20,7 +20,7 @@ public class Order {
 
 	@Id
 	@Column(name = "order_id")
-	private Integer orderID;
+	private Integer orderId;
 	
 	@NotNull
 	@Column(name = "billing_name")
@@ -71,11 +71,11 @@ public class Order {
 	}
 
 	public Integer getOrderID() {
-		return orderID;
+		return orderId;
 	}
 
 	public void setOrderID(Integer orderID) {
-		this.orderID = orderID;
+		this.orderId = orderID;
 	}
 
 	public Customer getCustomer() {

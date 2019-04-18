@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 import com.prototype.meteor.entities.Category;
 import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.entities.ProductHasCategory;
+import com.prototype.meteor.entities.Supplier;
 
 
 @Service
 public interface ProductService {
-	List<Product> findBySupplierName(String name);
+	List<Product> findBySupplier(Supplier supplier);
 	
 	List<Product> getAllProductsByCategoryId(Integer categoryID);
 	List<Product> getAllProductsByCategoryName(String name);

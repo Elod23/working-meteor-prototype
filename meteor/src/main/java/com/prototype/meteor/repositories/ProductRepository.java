@@ -3,16 +3,19 @@ package com.prototype.meteor.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.prototype.meteor.entities.Product;
+import com.prototype.meteor.entities.Review;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
+	Product findByProductId(Integer productId);
+	
 	List<Product> findByNameIgnoreCase(String name);
+	
+	List<Product> findByNameIgnoreCaseLike(String name);
 	
 	List<Product> findByMeasurementUnit(String MU);
 	
@@ -37,6 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	List<Product> findByProductDescription(String description);
 	
-	@Query("select * from Products inner join Suppliers on Products.SuppllierID = Suppliers.SupplierID where (Suppliers.Name = :name)")
-	List<Product> findBySupplierName(@Param("name")String name);
+	Product findByReviews(List<Review> reviews);
+	
+	List<Product> findByReview(Review review);
 }

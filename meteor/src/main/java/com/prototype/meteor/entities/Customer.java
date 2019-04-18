@@ -46,18 +46,18 @@ public class Customer {
 
 	@Column(name = "telephone_number")
 	private String telephoneNumber;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
-	
-	 @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL,fetch = FetchType.LAZY, optional = false)
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private ShoppingCart shoppingCart;
-	
-	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> orders = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Review> reviews = new ArrayList<>();
 
 	public Integer getCustomerId() {
@@ -147,6 +147,5 @@ public class Customer {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
 
 }

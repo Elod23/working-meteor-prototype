@@ -6,25 +6,35 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.prototype.meteor.entities.CartProduct;
+import com.prototype.meteor.entities.CartProductId;
+import com.prototype.meteor.entities.ShoppingCart;
 
 @Repository
 public interface CartProductsRepository extends JpaRepository<CartProduct, Integer>{
 	
-	List<CartProduct> findByProductID(Integer id);
+	CartProduct findById(CartProductId id);
+	
+	CartProduct findByCartProductIdCartIdAndCartProductIdProductId(Integer cartId, Integer productId);
+	
+	List<CartProduct> findByCartProductIdCartId(Integer cartId);
+	
+	List<CartProduct> findByCartProductIdProductId(Integer productId);
+	
+	List<CartProduct> findByCart(ShoppingCart shoppingCart);
 
 	List<CartProduct> findByQuantity(int quantity);
 	
 	//<
-	List<CartProduct> findByQuantityLessThan(int quantity);
+	List<CartProduct> findByQuantityLessThan(float quantity);
 	
 	//>=
-	List<CartProduct> findByQuantityGreaterThanEqual(int quantity);
+	List<CartProduct> findByQuantityGreaterThanEqual(float quantity);
 	
 	//<=
-	List<CartProduct> findByQuantityLessThanEqual(int quantity);
+	List<CartProduct> findByQuantityLessThanEqual(float quantity);
 
 	//>
-	List<CartProduct> findByQuantityGreaterThan(int quantity);
+	List<CartProduct> findByQuantityGreaterThan(float quantity);
 	
 	//Queries on a respective product regarding quantity
 	//<

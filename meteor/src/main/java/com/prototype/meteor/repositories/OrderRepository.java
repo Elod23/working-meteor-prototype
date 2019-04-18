@@ -6,30 +6,38 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.prototype.meteor.entities.Address;
+import com.prototype.meteor.entities.Customer;
 import com.prototype.meteor.entities.Order;
+import com.prototype.meteor.entities.OrderStatus;
+import com.prototype.meteor.entities.OrderedProduct;
 
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Integer>{
 	
-	List<Order> findByCustomerID(Integer customerID);
+	Order findByOrderID(Integer orderId);
 	
-	List<Order> findByBillingName(String billingName);
+	List<Order> findByCustomer(Customer customer);
 	
-	List<Order> findByDeliveryName(String deliveryName);
+	List<Order> findByBillingNameIgnoreCase(String billingName);
 	
-	List<Order> findByEmail(String email);
+	List<Order> findByDeliveryNameIgnoreCase(String deliveryName);
+	
+	List<Order> findByEmailIgnoreCase(String email);
 	
 	List<Order> findByPruchaseDate(Date date);
 	
-	List<Order> findByPruchaseDateAndOrderStatusCode(Date date, Integer orderStausCode);
+	List<Order> findByPruchaseDateAndOrderStatusStatusCode(Date date, Integer statusCode);
 	
 	List<Order> findByPruchaseDateBetween(Date dateStart, Date dateEnd);
 	
-	List<Order> findByOrderStatusCode(Integer statusCode);
+	List<Order> findByOrderStatus(OrderStatus orderStatus);
 	
-	List<Order> findByBillingAddressID(Integer addressID);
+	List<Order> findByBillingAddress(Address Address);
 	
-	List<Order> findByDeliveryAddressID(Integer addressID);
+	Order findByAllOrderedProducts(List<OrderedProduct> orderedProducts);
+	
+	List<Order> findAllByOrderedProduct(OrderedProduct orderedProduct);
 
 }

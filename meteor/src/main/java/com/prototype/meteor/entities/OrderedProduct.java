@@ -39,14 +39,10 @@ public class OrderedProduct {
 	@NotNull
 	@Column(name = "price")
 	private float price;
-
+	
 	@NotNull
 	@Column(name = "tva")
 	private int TVA;
-
-	@NotNull
-	@Column(name = "quantity")
-	private float quantity;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
@@ -90,14 +86,6 @@ public class OrderedProduct {
 		this.name = name;
 	}
 
-	public float getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(float quantity) {
-		this.quantity = quantity;
-	}
-	
 	public Order getOrder() {
 		return order;
 	}

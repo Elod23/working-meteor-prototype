@@ -41,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
 	 * Possible methods giving usability regards to Supplier.
 	 */
 	@Override
-	public List<Product> findBySupplierName(String name) {
-		return productRepository.findBySupplierName(name);
+	public List<Product> findBySupplier(Supplier supplier) {
+		return supplierRepository.findBySupplier(supplier);
 	}
 
 	/*
