@@ -16,5 +16,5 @@ public interface ShoppingCartStatusRepository extends JpaRepository<ShoppingCart
 	
 	List<ShoppingCartStatus> findByShoppingCartStatusDescriptionIgnoreCaseLike(String description);
 
-	ShoppingCartStatus findByShoppingCart(ShoppingCart shoppingCart);
+	ShoppingCartStatus findByCartsWithStatus(List<ShoppingCart> shoppingCartsWithStatus);
 }

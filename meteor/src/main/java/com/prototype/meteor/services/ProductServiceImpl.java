@@ -40,17 +40,13 @@ public class ProductServiceImpl implements ProductService {
 	/*
 	 * Possible methods giving usability regards to Supplier.
 	 */
-	@Override
-	public List<Product> findBySupplier(Supplier supplier) {
-		return supplierRepository.findBySupplier(supplier);
-	}
 
 	/*
 	 * Possible methods giving usability regards to Category.
 	 */
 	@Override
 	public List<Product> getAllProductsByCategoryId(Integer categoryID) {
-		List<ProductHasCategory> productHasCategory = productHasCategoryRepository.findByCategoryID(categoryID);
+		List<ProductHasCategory> productHasCategory = productHasCategoryRepository.findByCategoryCategoryId(categoryID);
 		List<Product> productsForCategoryId = new ArrayList<>();
 		for (ProductHasCategory record : productHasCategory) {
 			productsForCategoryId.add(productRepository.getOne(record.getProduct().getProductId()));
@@ -65,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductHasCategory> records = new ArrayList<>();
 
 		for (Category category : categories) {
-			records.addAll(productHasCategoryRepository.findByCategoryID(category.getCategoryId()));
+			records.addAll(productHasCategoryRepository.findByCategoryCategoryId(category.getCategoryId()));
 		}
 		for (ProductHasCategory relation : records) {
 			productsByCategoryName.add(productRepository.getOne(relation.getProduct().getProductId()));

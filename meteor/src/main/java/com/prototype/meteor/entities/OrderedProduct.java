@@ -26,7 +26,7 @@ public class OrderedProduct {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="ordered_product_id")
-	private Integer OrderedProductId;
+	private Integer orderedProductId;
 
 	@NotNull
 	@Column(name = "name")
@@ -37,12 +37,20 @@ public class OrderedProduct {
 	private String description;
 
 	@NotNull
+	@Column(name = "measurement_unit")
+	private String measurementUnit;
+	
+	@NotNull
+	@Column(name = "secondary_mu")
+	private String secondaryMU;
+	
+	@NotNull
 	@Column(name = "price")
 	private float price;
 	
 	@NotNull
 	@Column(name = "tva")
-	private int TVA;
+	private int tva;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
@@ -71,11 +79,11 @@ public class OrderedProduct {
 	}
 
 	public int getTVA() {
-		return TVA;
+		return tva;
 	}
 
 	public void setTVA(int tVA) {
-		TVA = tVA;
+		this.tva = tVA;
 	}
 
 	public String getName() {
@@ -97,12 +105,41 @@ public class OrderedProduct {
 
 
 	public Integer getOrderedProductId() {
-		return OrderedProductId;
+		return orderedProductId;
 	}
 
 
 	public void setOrderedProductId(Integer orderedProductId) {
-		OrderedProductId = orderedProductId;
+		this.orderedProductId = orderedProductId;
+	}
+
+	public String getMeasurementUnit() {
+		return measurementUnit;
+	}
+
+
+	public void setMeasurementUnit(String measurementUnit) {
+		this.measurementUnit = measurementUnit;
+	}
+
+
+	public String getSecondaryMU() {
+		return secondaryMU;
+	}
+
+
+	public void setSecondaryMU(String secondaryMU) {
+		this.secondaryMU = secondaryMU;
+	}
+
+
+	public int getTva() {
+		return tva;
+	}
+
+
+	public void setTva(int tva) {
+		this.tva = tva;
 	}
 
 

@@ -12,22 +12,22 @@ import com.prototype.meteor.entities.OrderedProduct;
 @Repository
 public interface OrderedProductRepository extends JpaRepository<OrderedProduct, Integer> {
 
+	OrderedProduct findByOrderedProductId(Integer orderedProductId);
+	
 	List<OrderedProduct> findByNameIgnoreCase(String name);
 
 	List<OrderedProduct> findByMeasurementUnit(String MU);
 
-	List<OrderedProduct> findBySecondaryMeasurementUnit(String SMU);
+	List<OrderedProduct> findBySecondaryMU(String SMU);
 
 	List<OrderedProduct> findByPrice(float price);
 
-	List<OrderedProduct> findByCotaTVA(float TVA);
-
-	List<OrderedProduct> findByOrderID(float supplierID);
+	List<OrderedProduct> findByTva(float TVA);
 
 	List<OrderedProduct> findBydescriptionIgnoreCaseLike(String description);
-
-	List<OrderedProduct> findByProductID(Integer productID);
 	
 	List<OrderedProduct> findByOrder(Order order);
+	
+	List<OrderedProduct> findByOrderOrderId(Integer orderId);
 
 }

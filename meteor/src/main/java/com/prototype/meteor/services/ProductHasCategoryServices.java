@@ -16,7 +16,7 @@ public class ProductHasCategoryServices {
 	private ProductHasCategoryRepository productCategoryRepo;
 	
 	public List<ProductHasCategory> listAllProductsByCategory(Integer category){
-		return productCategoryRepo.findByCategoryID(category);
+		return productCategoryRepo.findByCategoryCategoryId(category);
 	}
 	
 	public List<ProductHasCategory> listAll(){

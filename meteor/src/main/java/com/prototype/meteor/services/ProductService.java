@@ -12,15 +12,22 @@ import com.prototype.meteor.entities.Supplier;
 
 @Service
 public interface ProductService {
-	List<Product> findBySupplier(Supplier supplier);
 	
 	List<Product> getAllProductsByCategoryId(Integer categoryID);
+	
 	List<Product> getAllProductsByCategoryName(String name);
+	
 	ProductHasCategory addProductToCategory(Product product, Category category);
+	
 	Product save(Product product);
+	
 	Product update(Product product);
+	
 	Product delete(Product product);
+	
 	Product getProductByExactName(String name);
+	
 	List<Product> getAllProductsWithName(String name);
+	
 	List<Product> getProductsByPrice(float price);
 }

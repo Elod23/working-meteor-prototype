@@ -23,7 +23,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	
 	List<Review> findByTextIgnoreCaseLike(String text);
 	
-	List<Review> findByProductProductID(Integer ProductID);
+	List<Review> findByProductProductId(Integer ProductId);
 	
 	List<Review> findByProduct(Product product);
 	

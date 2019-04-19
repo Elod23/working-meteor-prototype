@@ -17,7 +17,7 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Inte
 	
 	ShoppingCart findByCartId(Integer cartId);
 	
-	ShoppingCart findByCustomerCustomerID(Integer customerID);
+	ShoppingCart findByCustomerCustomerId(Integer customerID);
 	
 	ShoppingCart findByCustomer(Customer customer);
 	
@@ -25,14 +25,13 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Inte
 	
 	List<ShoppingCart> findByCartCreatedBetween(LocalDateTime start, LocalDateTime end);
 	
-	List<ShoppingCart> findByCartStatus(ShoppingCartStatus shoppingCartStatus);
+	List<ShoppingCart> findByShoppingCartStatus(ShoppingCartStatus shoppingCartStatus);
 	
 	List<ShoppingCart> findByCartCreatedBeforeAndShoppingCartStatusShoppingCartStatusCode(LocalDateTime time, Integer statusCode);
 	
 	List<ShoppingCart> findByCartCreatedAfterAndShoppingCartStatusShoppingCartStatusCode(LocalDateTime time, Integer statusCode);
 	
-	List<ShoppingCart> findByProduct(Product product);
 	
-	ShoppingCart findByAllProducts(List<Product> products);
+	ShoppingCart findByProducts(List<Product> products);
 
 }

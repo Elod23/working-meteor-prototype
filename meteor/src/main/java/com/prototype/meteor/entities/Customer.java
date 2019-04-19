@@ -24,7 +24,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
-	private Integer CustomerId;
+	private Integer customerId;
 	@NotNull
 	@Column(name = "forma_functionare")
 	private String legalForm;
@@ -61,11 +61,11 @@ public class Customer {
 	private List<Review> reviews = new ArrayList<>();
 
 	public Integer getCustomerId() {
-		return CustomerId;
+		return customerId;
 	}
 
 	public void setCustomerId(Integer customerId) {
-		this.CustomerId = customerId;
+		this.customerId = customerId;
 	}
 
 	public String getLegalForm() {

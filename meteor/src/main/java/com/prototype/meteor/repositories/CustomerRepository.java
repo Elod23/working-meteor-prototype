@@ -22,12 +22,18 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	List<Customer> findByLegalFormIgnoreCaseLike(String formName);
 
 	List<Customer> findByFirstNameAndLastNameIgnoreCase(String firstName, String lastName);
+	
+	List<Customer> findByFirstNameIgnoreCase(String firstName);
+	
+	List<Customer> findByLastNameIgnoreCase(String lastName);
 
 	List<Customer> findByBirthDate(Date birthDate);
 
 	List<Customer> findByEmailIgnoreCase(String email);
 
 	List<Customer> findByEmail(String email);
+	
+	List<Customer> findByEmailIgnoreCaseLike(String email);
 
 	List<Customer> findByTelephoneNumber(String number);
 
@@ -35,12 +41,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 	Customer findByAddress(Address address);
 
-	List<Customer> findByOrder(Order order);
+	Customer findByOrders(List<Order> orders);
 
-	Customer findByAllOrders(List<Order> orders);
-
-	List<Customer> findByReview(Review review);
-
-	Customer findByAllReviews(List<Review> reviews);
+	Customer findByReviews(List<Review> reviews);
 
 }
