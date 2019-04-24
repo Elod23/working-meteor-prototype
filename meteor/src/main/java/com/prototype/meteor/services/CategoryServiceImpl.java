@@ -14,6 +14,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Override
+	public Category findById(Integer id) {
+		return categoryRepository.findByCategoryId(id);
+	}
+
 
 	public CategoryServiceImpl(CategoryRepository categoryRepository) {
 		super();

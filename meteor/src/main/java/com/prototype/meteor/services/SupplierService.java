@@ -10,6 +10,8 @@ import com.prototype.meteor.entities.Supplier;
 
 @Service
 public interface SupplierService {
+	SupplierDTO findById(Integer id);
+	
 	Supplier save(SupplierDTO supplier);
 
 	Supplier update(SupplierDTO supplier);

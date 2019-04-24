@@ -196,6 +196,11 @@ public class SupplierServiceImpl implements SupplierService {
 	public List<Product> findAllProducts(SupplierDTO supplier){
 		return supplier.getProducts();
 	}
+
+	@Override
+	public SupplierDTO findById(Integer id) {
+		return this.convertToDTO(supplierRepository.findBySupplierId(id));
+	}
 	
 	
 

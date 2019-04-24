@@ -85,9 +85,31 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product update(Product product) {
-		productRepository.delete(productRepository.getOne(product.getProductId()));
-		return productRepository.save(product);
+	public Product update(Integer id, Product product) {
+		Product initialProduct  = productRepository.getOne(id);
+		Product changes = new Product();
+		
+		if(product.getName() == null)
+			changes.setName(initialProduct.getName());
+		if(product.getMeasurementUnit() ==  null)
+			changes.setMeasurementUnit(initialProduct.getMeasurementUnit());
+		if(product.getSecondaryMU() ==  null)
+			changes.setSecondaryMU(initialProduct.getSecondaryMU());
+		if(product.getPrice() == 0.0f)
+			changes.setPrice(initialProduct.getPrice());
+		if(product.getQuantity() == 0.0f)
+			changes.setQuantity(initialProduct.getQuantity());
+		if(product.getCotaTVA() == 0)
+			changes.setCotaTVA(initialProduct.getCotaTVA());
+		if(product.getProductDescription() == null)
+			changes.setProductDescription(initialProduct.getProductDescription());
+		if(product.getReviews() == null)
+			changes.setReviews(initialProduct.getReviews());
+		changes.setProductId(id);
+		
+		productRepository.delete(initialProduct);
+		System.out.println(changes.getName() + " sadsssssssssssssssssssssssssssssss");
+		return productRepository.save(changes);
 	}
 
 	@Override
@@ -158,6 +180,17 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByProductDescription(descrip);
 	}
 
+	@Override
+	public List<Product> getAll() {
+		return productRepository.findAll();
+	}
+
+	@Override
+	public Product getById(Integer id) {
+		return productRepository.findByProductId(id);
+	}
+
+	
 	
 
 }

@@ -21,7 +21,7 @@ public interface ProductService {
 	
 	Product save(Product product);
 	
-	Product update(Product product);
+	Product update(Integer id, Product product);
 	
 	Product delete(Product product);
 	
@@ -30,4 +30,8 @@ public interface ProductService {
 	List<Product> getAllProductsWithName(String name);
 	
 	List<Product> getProductsByPrice(float price);
+	
+	List<Product> getAll();
+	
+	Product getById(Integer id);
 }
