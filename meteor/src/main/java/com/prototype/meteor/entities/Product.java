@@ -31,10 +31,10 @@ public class Product {
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NaturalId
 	private Integer productId;
 	@NotNull
 	@Column(name = "name")
-	@NaturalId
 	private String name;
 	@NotNull
 	@Column(name = "measurement_unit")

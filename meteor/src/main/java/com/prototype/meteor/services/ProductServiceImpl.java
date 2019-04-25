@@ -86,29 +86,26 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product update(Integer id, Product product) {
-		Product initialProduct  = productRepository.getOne(id);
-		Product changes = new Product();
+		Product changes = productRepository.getOne(id);
 		
-		if(product.getName() == null)
-			changes.setName(initialProduct.getName());
-		if(product.getMeasurementUnit() ==  null)
-			changes.setMeasurementUnit(initialProduct.getMeasurementUnit());
-		if(product.getSecondaryMU() ==  null)
-			changes.setSecondaryMU(initialProduct.getSecondaryMU());
-		if(product.getPrice() == 0.0f)
-			changes.setPrice(initialProduct.getPrice());
-		if(product.getQuantity() == 0.0f)
-			changes.setQuantity(initialProduct.getQuantity());
-		if(product.getCotaTVA() == 0)
-			changes.setCotaTVA(initialProduct.getCotaTVA());
-		if(product.getProductDescription() == null)
-			changes.setProductDescription(initialProduct.getProductDescription());
-		if(product.getReviews() == null)
-			changes.setReviews(initialProduct.getReviews());
+		if(product.getName() != null)
+			changes.setName(product.getName());
+		if(product.getMeasurementUnit() !=  null)
+			changes.setMeasurementUnit(product.getMeasurementUnit());
+		if(product.getSecondaryMU() !=  null)
+			changes.setSecondaryMU(product.getSecondaryMU());
+		if(product.getPrice() != 0.0f)
+			changes.setPrice(product.getPrice());
+		if(product.getQuantity() != 0.0f)
+			changes.setQuantity(product.getQuantity());
+		if(product.getCotaTVA() != 0)
+			changes.setCotaTVA(product.getCotaTVA());
+		if(product.getProductDescription() != null)
+			changes.setProductDescription(product.getProductDescription());
+		if(product.getReviews() != null)
+			changes.getReviews().addAll(product.getReviews());
 		changes.setProductId(id);
 		
-		productRepository.delete(initialProduct);
-		System.out.println(changes.getName() + " sadsssssssssssssssssssssssssssssss");
 		return productRepository.save(changes);
 	}
 

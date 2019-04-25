@@ -48,7 +48,7 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public Product updateProduct(@PathVariable Integer id, @RequestParam Product product) {
+	public Product updateProduct(@PathVariable Integer id, @RequestBody Product product) {
 		return productService.update(id, product);
 	}
 	
