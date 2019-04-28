@@ -80,14 +80,17 @@ public class OrderedProduct {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	
 
-	public int getTVA() {
+	public int getTva() {
 		return tva;
 	}
 
-	public void setTVA(int tVA) {
-		this.tva = tVA;
+
+	public void setTva(int tva) {
+		this.tva = tva;
 	}
+
 
 	public String getName() {
 		return name;
@@ -134,17 +137,6 @@ public class OrderedProduct {
 	public void setSecondaryMU(String secondaryMU) {
 		this.secondaryMU = secondaryMU;
 	}
-
-
-	public int getTva() {
-		return tva;
-	}
-
-
-	public void setTva(int tva) {
-		this.tva = tva;
-	}
-
 
 	@Override
 	public boolean equals(Object o) {

@@ -17,32 +17,36 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "Customer")
 @Table(name = "customers")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
 	private Integer customerId;
-	@NotNull
+
 	@Column(name = "forma_functionare")
 	private String legalForm;
-	@NotNull
+
 	@Column(name = "first_name")
 	private String firstName;
-	@NotNull
+
 	@Column(name = "last_name")
 	private String lastName;
-	@NotNull
+
 	@Column(name = "birthdate")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date birthDate;
+
 	@NotNull
 	@Column(name = "email")
 	private String email;
+
 	@NotNull
 	@Column(name = "password")
 	private String password;
@@ -150,5 +154,14 @@ public class Customer {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+	
 
 }
