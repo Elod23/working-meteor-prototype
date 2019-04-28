@@ -8,15 +8,16 @@ import com.prototype.meteor.domain.SupplierDTO;
 import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.entities.Supplier;
 
-@Service
 public interface SupplierService {
-	SupplierDTO findById(Integer id);
+	Supplier findById(Integer id);
+	
+	SupplierDTO findByIdThenConvert(Integer id);
 	
 	Supplier save(SupplierDTO supplier);
 
-	Supplier update(SupplierDTO supplier);
+	SupplierDTO update(Integer id, Supplier supplier);
 
-	Supplier delete(SupplierDTO supplier);
+	Supplier delete(Supplier supplier);
 
 	List<SupplierDTO> findAll();
 
@@ -29,4 +30,6 @@ public interface SupplierService {
 	List<SupplierDTO> findByNameIgnoreCaseLike(String name);
 
 	SupplierDTO findByProducts(List<Product> products);
+	
+	Product addProductToSupplier(Product product, Supplier supplier);
 }

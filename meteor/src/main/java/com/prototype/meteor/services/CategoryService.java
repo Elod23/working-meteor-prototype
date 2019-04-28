@@ -9,7 +9,7 @@ public interface CategoryService {
 
 	Category save(Category category);
 
-	Category update(Category category);
+	Category update(Integer id, Category category);
 
 	Category delete(Category category);
 

@@ -38,10 +38,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	/*
-	 * Possible methods giving usability regards to Supplier.
-	 */
-
-	/*
 	 * Possible methods giving usability regards to Category.
 	 */
 	@Override

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prototype.meteor.domain.SupplierDTO;
+import com.prototype.meteor.entities.GenericBuilder;
+import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.entities.Supplier;
 import com.prototype.meteor.services.SupplierService;
 
@@ -36,19 +38,39 @@ public class SupplierController {
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public SupplierDTO showSupplier(@PathVariable Integer id) {
-		return supplierService.findById(id);
+		return supplierService.findByIdThenConvert(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public Supplier updateSupplier(@RequestBody SupplierDTO supplier) {
-		return supplierService.update(supplier);
+	public SupplierDTO updateSupplier(@PathVariable Integer id, @RequestBody SupplierDTO supplier) {
+		SupplierDTO supplierDb = supplierService.findByIdThenConvert(id);
+		if(supplier.getCUI() == null)
+			supplier.setCUI(supplierDb.getCUI());
+		if(supplier.getName() == null)
+			supplier.setName(supplierDb.getName());
+		if(supplier.getLogoURL() == null)
+			supplier.setLogoURL(supplierDb.getLogoURL());
+		
+		Supplier updatedSupplier = GenericBuilder.of(Supplier::new)
+									.with(Supplier::setSupplierId, id)
+									.with(Supplier::setName, supplier.getName())
+									.with(Supplier::setcUI, supplier.getCUI())
+									.with(Supplier::setSupplierLogoURL, supplier.getLogoURL())
+									.build();
+		return supplierService.update(id, updatedSupplier);
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
 	public Supplier deleteSupplier(@PathVariable Integer id) {
 		return supplierService.delete(supplierService.findById(id));
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "/{id}/products", method = RequestMethod.GET)
+	public List<Product> getAllProductsOfSupplier(@PathVariable Integer id){
+		return supplierService.findById(id).getProducts();
 	}
 	
 }

@@ -27,7 +27,7 @@ public class ProductHasCategory {
 	@MapsId("productId")
 	private Product product;
 	
-	
+	private ProductHasCategory() {};
 	
 	public ProductHasCategory(Category category, Product product) {
 		super();

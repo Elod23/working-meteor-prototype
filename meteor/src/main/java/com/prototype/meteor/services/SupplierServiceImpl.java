@@ -26,49 +26,45 @@ public class SupplierServiceImpl implements SupplierService {
 		super();
 		this.supplierRepository = supplierRepository;
 	}
-	
+
 	/*
 	 * Converting DToToDb And Backwards(non-Javadoc)
-	 * @see com.prototype.meteor.services.SupplierService#save(com.prototype.meteor.entities.Supplier)
+	 * 
+	 * @see com.prototype.meteor.services.SupplierService#save(com.prototype.meteor.
+	 * entities.Supplier)
 	 */
 	private SupplierDTO convertToDTO(Supplier supplier) {
-		
-		if(supplier != null) {
-		SupplierDTO supplierDTO = GenericBuilder.of(SupplierDTO::new)
-									.with(SupplierDTO::setName, supplier.getName())
-									.with(SupplierDTO::setCUI, supplier.getcUI())
-									.with(SupplierDTO::setLogoURL, supplier.getSupplierLogoURL())
-									.with(SupplierDTO::setProducts, supplier.getProducts())
-									.build();
-		
-		return supplierDTO;
-		}else {
-			logger.info("The  Supplier asked for does not exist in the Database", supplier.getcUI());
+
+		if (supplier != null) {
+			SupplierDTO supplierDTO = GenericBuilder.of(SupplierDTO::new).with(SupplierDTO::setName, supplier.getName())
+					.with(SupplierDTO::setCUI, supplier.getcUI())
+					.with(SupplierDTO::setLogoURL, supplier.getSupplierLogoURL())
+					.with(SupplierDTO::setProducts, supplier.getProducts()).build();
+
+			return supplierDTO;
+		} else {
+			logger.info("The  Supplier asked for does not exist in the Database");
 			return null;
 		}
 	}
-	
+
 	private Supplier convertToDb(SupplierDTO supplier) {
-		
-		if(supplier != null) {
-		Supplier supplierDb = GenericBuilder.of(Supplier::new)
-								.with(Supplier::setName, supplier.getName())
-								.with(Supplier::setcUI, supplier.getCUI())
-								.with(Supplier::setSupplierLogoURL, supplier.getLogoURL())
-								.with(Supplier::setProducts, supplier.getProducts())
-								.build();
-		return supplierDb;
-		}else {
+
+		if (supplier != null) {
+			Supplier supplierDb = GenericBuilder.of(Supplier::new).with(Supplier::setName, supplier.getName())
+					.with(Supplier::setcUI, supplier.getCUI()).with(Supplier::setSupplierLogoURL, supplier.getLogoURL())
+					.with(Supplier::setProducts, supplier.getProducts()).build();
+			return supplierDb;
+		} else {
 			logger.info("The given SupplierDTO input object is null", supplier);
 			return null;
 		}
 	}
-	
 
 	@Override
 	public Supplier save(SupplierDTO supplier) {
 		if (supplier != null) {
-			Supplier supplierDb  = this.convertToDb(supplier);
+			Supplier supplierDb = this.convertToDb(supplier);
 			return supplierRepository.save(supplierDb);
 		} else {
 			logger.info("Supplier object gives as parameter was null", supplier);
@@ -77,28 +73,36 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public Supplier update(SupplierDTO supplier) {
+	public SupplierDTO update(Integer id, Supplier supplier) {
 		if (supplier == null) {
 			logger.info("Supplier object given as parameter was null, nothing to update", supplier);
 			return null;
 		} else {
-			Supplier supplierDb = this.convertToDb(supplier);
-			
-			supplierRepository.delete(supplierDb);
-			return supplierRepository.save(supplierDb);
+			Supplier changes = supplierRepository.getOne(id);
+
+			if (supplier.getName() != null)
+				changes.setName(supplier.getName());
+			if (supplier.getcUI() != null)
+				changes.setcUI(supplier.getcUI());
+			if (supplier.getSupplierLogoURL() != null)
+				changes.setSupplierLogoURL(supplier.getSupplierLogoURL());
+			if (supplier.getProducts() != null && supplier.getProducts().size() != 0)
+				changes.getProducts().addAll(supplier.getProducts());
+
+			changes.setSupplierId(id);
+			return this.convertToDTO(supplierRepository.save(changes));
 		}
 	}
 
 	@Override
-	public Supplier delete(SupplierDTO supplier) {
+	public Supplier delete(Supplier supplier) {
 		if (supplier == null) {
 			logger.info("Supplier object given as parameter was null, there is no id to be deleted for", supplier);
 		} else {
-			
-			Supplier supplierDb = this.convertToDb(supplier);
-			supplierRepository.delete(supplierDb);
-			logger.info("Deleted Supplier :" + supplier.toString());
-			return supplierDb;
+
+			supplierRepository.delete(supplier);
+			logger.info("Deleted Supplier with Id:" + supplier.getSupplierId());
+			return supplier;
 		}
 		return null;
 	}
@@ -107,7 +111,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public List<SupplierDTO> findAll() {
 		List<Supplier> suppliers = supplierRepository.findAll();
 		List<SupplierDTO> suppliersDisplayed = new ArrayList<>();
-		for(Supplier supplier: suppliers) {
+		for (Supplier supplier : suppliers) {
 			suppliersDisplayed.add(this.convertToDTO(supplier));
 		}
 		return suppliersDisplayed;
@@ -119,10 +123,10 @@ public class SupplierServiceImpl implements SupplierService {
 			logger.info("The given CUI as param was null, there is no String to be searched after", CUI);
 			return null;
 		} else {
-			
+
 			List<Supplier> suppliers = supplierRepository.findByCUIIgnoreCase(CUI);
 			List<SupplierDTO> suppliersDisplayed = new ArrayList<>();
-			for(Supplier supplier: suppliers) {
+			for (Supplier supplier : suppliers) {
 				suppliersDisplayed.add(this.convertToDTO(supplier));
 			}
 			return suppliersDisplayed;
@@ -137,7 +141,7 @@ public class SupplierServiceImpl implements SupplierService {
 		} else {
 			List<Supplier> suppliers = supplierRepository.findByCUIIgnoreCaseLike(CUI);
 			List<SupplierDTO> suppliersDisplayed = new ArrayList<>();
-			for(Supplier supplier: suppliers) {
+			for (Supplier supplier : suppliers) {
 				suppliersDisplayed.add(this.convertToDTO(supplier));
 			}
 			return suppliersDisplayed;
@@ -152,7 +156,7 @@ public class SupplierServiceImpl implements SupplierService {
 		} else {
 			List<Supplier> suppliers = supplierRepository.findByNameIgnoreCase(name);
 			List<SupplierDTO> suppliersDisplayed = new ArrayList<>();
-			for(Supplier supplier: suppliers) {
+			for (Supplier supplier : suppliers) {
 				suppliersDisplayed.add(this.convertToDTO(supplier));
 			}
 			return suppliersDisplayed;
@@ -167,7 +171,7 @@ public class SupplierServiceImpl implements SupplierService {
 		} else {
 			List<Supplier> suppliers = supplierRepository.findByNameIgnoreCaseLike(name);
 			List<SupplierDTO> suppliersDisplayed = new ArrayList<>();
-			for(Supplier supplier: suppliers) {
+			for (Supplier supplier : suppliers) {
 				suppliersDisplayed.add(this.convertToDTO(supplier));
 			}
 			return suppliersDisplayed;
@@ -186,22 +190,31 @@ public class SupplierServiceImpl implements SupplierService {
 
 		if (products != null && products.size() != 0) {
 			Supplier supplierDb = supplierRepository.findByProducts(products);
-			
-			
+
 			return this.convertToDTO(supplierDb);
 		} else
 			return null;
 	}
-	
-	public List<Product> findAllProducts(SupplierDTO supplier){
+
+	public List<Product> findAllProducts(SupplierDTO supplier) {
 		return supplier.getProducts();
 	}
 
 	@Override
-	public SupplierDTO findById(Integer id) {
+	public SupplierDTO findByIdThenConvert(Integer id) {
 		return this.convertToDTO(supplierRepository.findBySupplierId(id));
 	}
-	
-	
+
+	@Override
+	public Supplier findById(Integer id) {
+		return supplierRepository.findBySupplierId(id);
+	}
+
+	@Override
+	public Product addProductToSupplier(Product product, Supplier supplier) {
+		supplier.getProducts().add(product);
+		this.update(supplier.getSupplierId(), supplier);
+		return product;
+	}
 
 }

@@ -30,6 +30,7 @@ public class ProductCategoryController {
 		return categoryService.findAll();
 	}
 	
+	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.POST)
 	public Category createCategory(Category category) {
 		return categoryService.save(category);
@@ -43,13 +44,13 @@ public class ProductCategoryController {
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public Category updateCategory(@RequestBody Category category) {
-		return categoryService.update(category);
+	public Category updateCategory(@PathVariable Integer id, @RequestBody Category category) {
+		return categoryService.update(id, category);
 	}
 	
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public Category deleteCategory(@RequestBody Category category) {
-		return categoryService.delete(category);
+	public Category deleteCategory(@PathVariable Integer id) {
+		return categoryService.delete(categoryService.findById(id));
 	}
 	
 	@ResponseBody
@@ -57,4 +58,5 @@ public class ProductCategoryController {
 	public List<Product> findAllProductsInCategory(@PathVariable Integer id){
 		return productService.getAllProductsByCategoryId(id);
 	}
+	
 }
