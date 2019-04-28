@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.prototype.meteor.entities.Category;
 import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.entities.ProductHasCategory;
+import com.prototype.meteor.entities.Review;
 import com.prototype.meteor.entities.Supplier;
 import com.prototype.meteor.repositories.CategoryRepository;
 import com.prototype.meteor.repositories.ProductHasCategoryRepository;
@@ -181,6 +182,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product getById(Integer id) {
 		return productRepository.findByProductId(id);
+	}
+
+	@Override
+	public List<Review> findReviewsForProduct(Product product) {
+		return product.getReviews();
 	}
 
 	

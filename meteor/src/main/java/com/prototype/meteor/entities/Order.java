@@ -56,7 +56,22 @@ public class Order {
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderedProduct> orderedProducts = new ArrayList<>();
 	
-	
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public List<OrderedProduct> getOrderedProducts() {
+		return orderedProducts;
+	}
+
+	public void setOrderedProducts(List<OrderedProduct> orderedProducts) {
+		this.orderedProducts = orderedProducts;
+	}
+
 	public Address getBillingAddress() {
 		return billingAddress;
 	}
@@ -71,14 +86,6 @@ public class Order {
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
-	}
-
-	public Integer getOrderID() {
-		return orderId;
-	}
-
-	public void setOrderID(Integer orderID) {
-		this.orderId = orderID;
 	}
 
 	public Customer getCustomer() {

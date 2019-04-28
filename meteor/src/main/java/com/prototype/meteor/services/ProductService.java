@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.prototype.meteor.entities.Category;
 import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.entities.ProductHasCategory;
+import com.prototype.meteor.entities.Review;
 
 
 @Service
@@ -33,5 +34,7 @@ public interface ProductService {
 	List<Product> getAll();
 	
 	Product getById(Integer id);
+	
+	List<Review> findReviewsForProduct(Product product);
 
 }
