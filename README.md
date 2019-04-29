@@ -14,6 +14,10 @@ The project serves as the focal point of my Barchelor's thesis, being the subjec
 The application itself is an ecommerce store used in construction retail, aiming to motivate people not so experienced with computer usage to make orders online.
 I will try to make the Front-End as simple and easily usable as it can be while the Backend as robust as the Spring framework itself.
 
+2019.04.29> The project is changing from an ecommerce store to a presentation of the firm with all of their products by the decision of the owner. Today's discussion ended up with positive feedback and the collaboration is gaining strength. Now it is time to show how can I adapt to the new situation.
+
+
+
 Anyone open to contribute with some ideas about know-how and personal ideas is asked to contanct me via email or facebook.
 
 Huge thanks for your time,
