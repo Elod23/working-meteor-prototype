@@ -64,12 +64,6 @@ public class AddressController {
 		if (address.getCustomer() != null) {
 			addressDb.setCustomer(address.getCustomer());
 		}
-		if (address.getOrdersWithBillingAddress() != null && address.getOrdersWithBillingAddress().size() != 0) {
-			addressDb.getOrdersWithBillingAddress().addAll(address.getOrdersWithBillingAddress());
-		}
-		if (address.getOrdersWithBillingAddress() == null) {
-			addressDb.getOrdersWithBillingAddress().clear();
-		}
 		addressDb.setAddressId(id);
 		addressService.save(addressDb);
 		return address;

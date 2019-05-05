@@ -5,9 +5,7 @@ import java.util.List;
 import com.prototype.meteor.domain.CustomerDTO;
 import com.prototype.meteor.entities.Address;
 import com.prototype.meteor.entities.Customer;
-import com.prototype.meteor.entities.Order;
 import com.prototype.meteor.entities.Review;
-import com.prototype.meteor.entities.ShoppingCart;
 
 public interface CustomerService {
 	CustomerDTO getCustomerForDisplay(Customer customer);
@@ -29,12 +27,6 @@ public interface CustomerService {
 	Customer findByAddress(Address address);
 
 	Address findAddressForCustomer(Customer customer);
-
-	ShoppingCart findCartForCustomer(Customer customer);
-
-	Customer findByShoppingCart(ShoppingCart shoppingCart);
-
-	List<Order> findOrdersForCustomer(Customer customer);
 
 	List<Review> findReviewsForCustomer(Customer customer);
 

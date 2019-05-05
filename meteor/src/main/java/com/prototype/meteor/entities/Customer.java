@@ -58,12 +58,6 @@ public class Customer {
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	private ShoppingCart shoppingCart;
-
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Order> orders = new ArrayList<>();
-
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Review> reviews = new ArrayList<>();
 
@@ -139,14 +133,6 @@ public class Customer {
 		this.address = address;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
 	public List<Review> getReviews() {
 		return reviews;
 	}
@@ -154,14 +140,5 @@ public class Customer {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-
-	public ShoppingCart getShoppingCart() {
-		return shoppingCart;
-	}
-
-	public void setShoppingCart(ShoppingCart shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
-	
 
 }

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "Address")
 @Table(name = "addresses")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Address {
 
 	@Id
@@ -39,9 +39,6 @@ public class Address {
 
 	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private Customer customer;
-
-	@OneToMany(mappedBy = "billingAddress", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Order> ordersWithBillingAddress = new ArrayList<>();
 
 	public Integer getAddressId() {
 		return addressId;
@@ -98,15 +95,5 @@ public class Address {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
-	public List<Order> getOrdersWithBillingAddress() {
-		return ordersWithBillingAddress;
-	}
-
-	public void setOrdersWithBillingAddress(List<Order> ordersWithBillingAddress) {
-		this.ordersWithBillingAddress = ordersWithBillingAddress;
-	}
-
-	
 
 }
