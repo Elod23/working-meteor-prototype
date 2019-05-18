@@ -15,27 +15,25 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "Address")
 @Table(name = "addresses")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
 	private Integer addressId;
-	@NotNull
 	@Column(name = "country")
 	private String country;
-	@NotNull
 	@Column(name = "region")
 	private String region;
-	@NotNull
 	@Column(name = "city")
 	private String city;
-	@NotNull
 	@Column(name = "street")
 	private String street;
-	@NotNull
 	@Column(name = "number")
 	private int number;
 
@@ -44,22 +42,6 @@ public class Address {
 
 	@OneToMany(mappedBy = "billingAddress", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> ordersWithBillingAddress = new ArrayList<>();
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public List<Order> getOrdersWithBillingAddress() {
-		return ordersWithBillingAddress;
-	}
-
-	public void setOrdersWithBillingAddress(List<Order> ordersWithBillingAddress) {
-		this.ordersWithBillingAddress = ordersWithBillingAddress;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 
 	public Integer getAddressId() {
 		return addressId;
@@ -108,5 +90,23 @@ public class Address {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public List<Order> getOrdersWithBillingAddress() {
+		return ordersWithBillingAddress;
+	}
+
+	public void setOrdersWithBillingAddress(List<Order> ordersWithBillingAddress) {
+		this.ordersWithBillingAddress = ordersWithBillingAddress;
+	}
+
+	
 
 }

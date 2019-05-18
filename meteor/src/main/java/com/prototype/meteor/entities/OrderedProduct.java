@@ -17,16 +17,19 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "OrderedProduct")
 @Table(name = "OrderedProducts")
 @NaturalIdCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class OrderedProduct {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="ordered_product_id")
-	private Integer OrderedProductId;
+	private Integer orderedProductId;
 
 	@NotNull
 	@Column(name = "name")
@@ -37,12 +40,20 @@ public class OrderedProduct {
 	private String description;
 
 	@NotNull
+	@Column(name = "measurement_unit")
+	private String measurementUnit;
+	
+	@NotNull
+	@Column(name = "secondary_mu")
+	private String secondaryMU;
+	
+	@NotNull
 	@Column(name = "price")
 	private float price;
 	
 	@NotNull
 	@Column(name = "tva")
-	private int TVA;
+	private int tva;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
@@ -69,14 +80,17 @@ public class OrderedProduct {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	
 
-	public int getTVA() {
-		return TVA;
+	public int getTva() {
+		return tva;
 	}
 
-	public void setTVA(int tVA) {
-		TVA = tVA;
+
+	public void setTva(int tva) {
+		this.tva = tva;
 	}
+
 
 	public String getName() {
 		return name;
@@ -97,14 +111,32 @@ public class OrderedProduct {
 
 
 	public Integer getOrderedProductId() {
-		return OrderedProductId;
+		return orderedProductId;
 	}
 
 
 	public void setOrderedProductId(Integer orderedProductId) {
-		OrderedProductId = orderedProductId;
+		this.orderedProductId = orderedProductId;
 	}
 
+	public String getMeasurementUnit() {
+		return measurementUnit;
+	}
+
+
+	public void setMeasurementUnit(String measurementUnit) {
+		this.measurementUnit = measurementUnit;
+	}
+
+
+	public String getSecondaryMU() {
+		return secondaryMU;
+	}
+
+
+	public void setSecondaryMU(String secondaryMU) {
+		this.secondaryMU = secondaryMU;
+	}
 
 	@Override
 	public boolean equals(Object o) {

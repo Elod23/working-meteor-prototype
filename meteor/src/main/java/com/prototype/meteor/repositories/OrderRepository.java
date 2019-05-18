@@ -16,28 +16,32 @@ import com.prototype.meteor.entities.OrderedProduct;
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Integer>{
 	
-	Order findByOrderID(Integer orderId);
+	Order findByOrderId(Integer orderId);
 	
 	List<Order> findByCustomer(Customer customer);
 	
 	List<Order> findByBillingNameIgnoreCase(String billingName);
 	
+	List<Order> findByBillingNameIgnoreCaseLike(String billingName);
+	
 	List<Order> findByDeliveryNameIgnoreCase(String deliveryName);
+	
+	List<Order> findByDeliveryNameIgnoreCaseLike(String deliveryName);
 	
 	List<Order> findByEmailIgnoreCase(String email);
 	
-	List<Order> findByPruchaseDate(Date date);
+	List<Order> findByEmailIgnoreCaseLike(String email);
 	
-	List<Order> findByPruchaseDateAndOrderStatusStatusCode(Date date, Integer statusCode);
+	List<Order> findByPurchaseDate(Date date);
 	
-	List<Order> findByPruchaseDateBetween(Date dateStart, Date dateEnd);
+	List<Order> findByPurchaseDateAndOrderStatusStatusCode(Date date, Integer statusCode);
+	
+	List<Order> findByPurchaseDateBetween(Date dateStart, Date dateEnd);
 	
 	List<Order> findByOrderStatus(OrderStatus orderStatus);
 	
 	List<Order> findByBillingAddress(Address Address);
 	
-	Order findByAllOrderedProducts(List<OrderedProduct> orderedProducts);
-	
-	List<Order> findAllByOrderedProduct(OrderedProduct orderedProduct);
+	Order findByOrderedProducts(List<OrderedProduct> orderedProducts);
 
 }

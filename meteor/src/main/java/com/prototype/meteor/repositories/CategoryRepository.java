@@ -24,8 +24,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	
 	List<Category> findByDescriptionIgnoreCaseLike(String description);
 	
-	List<Category> findByProduct(Product proudct);
-	
-	Category findByProductList(List<Product> products);
+	Category findByProductsInCategory(List<Product> productsInCategory);
 
 }

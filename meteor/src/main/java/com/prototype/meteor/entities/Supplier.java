@@ -14,8 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "Supplier")
 @Table(name = "suppliers")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Supplier {
 
 	@Id
@@ -27,10 +30,10 @@ public class Supplier {
 	private String name;
 	@NotNull
 	@Column(name = "cui")
-	private String CUI;
+	private String cUI;
 	@Column(name = "supplier_logo_url")
 	private String supplierLogoURL;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "supplier_id")
 	private List<Product> products = new ArrayList<>();
@@ -43,12 +46,12 @@ public class Supplier {
 		this.name = name;
 	}
 
-	public String getCUI() {
-		return CUI;
+	public String getcUI() {
+		return cUI;
 	}
 
-	public void setCUI(String cUI) {
-		CUI = cUI;
+	public void setcUI(String cUI) {
+		this.cUI = cUI;
 	}
 
 	public Integer getSupplierId() {
@@ -65,6 +68,14 @@ public class Supplier {
 
 	public void setSupplierLogoURL(String supplierLogoURL) {
 		this.supplierLogoURL = supplierLogoURL;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 }

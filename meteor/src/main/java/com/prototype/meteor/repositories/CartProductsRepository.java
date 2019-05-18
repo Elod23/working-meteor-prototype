@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.prototype.meteor.entities.CartProduct;
 import com.prototype.meteor.entities.CartProductId;
+import com.prototype.meteor.entities.OrderedProduct;
 import com.prototype.meteor.entities.ShoppingCart;
 
 @Repository
@@ -14,11 +15,11 @@ public interface CartProductsRepository extends JpaRepository<CartProduct, Integ
 	
 	CartProduct findById(CartProductId id);
 	
-	CartProduct findByCartProductIdCartIdAndCartProductIdProductId(Integer cartId, Integer productId);
+	CartProduct findByIdCartIdAndIdProductId(Integer cartId, Integer productId);
 	
-	List<CartProduct> findByCartProductIdCartId(Integer cartId);
+	List<CartProduct> findByIdCartId(Integer cartId);
 	
-	List<CartProduct> findByCartProductIdProductId(Integer productId);
+	List<CartProduct> findByIdProductId(Integer productId);
 	
 	List<CartProduct> findByCart(ShoppingCart shoppingCart);
 
@@ -38,15 +39,15 @@ public interface CartProductsRepository extends JpaRepository<CartProduct, Integ
 	
 	//Queries on a respective product regarding quantity
 	//<
-	List<CartProduct> findByProductIDAndQuantityLessThan(Integer productID, int quantity);
+	List<CartProduct> findByProductAndQuantityLessThan(OrderedProduct product, int quantity);
 	
 	//>=
-	List<CartProduct> findByProducIDAndQuantityGreaterThanEqual(Integer productID, int quantity);
+	List<CartProduct> findByProductAndQuantityGreaterThanEqual(OrderedProduct product, int quantity);
 		
 	//<=
-	List<CartProduct> findByProductIDAndQuantityLessThanEqual(Integer productID,int quantity);
+	List<CartProduct> findByProductAndQuantityLessThanEqual(OrderedProduct product,int quantity);
 
 	//>
-	List<CartProduct> findByProductIDAndQuantityGreaterThan(Integer productID, int quantity);
+	List<CartProduct> findByProductAndQuantityGreaterThan(OrderedProduct product, int quantity);
 	
 }

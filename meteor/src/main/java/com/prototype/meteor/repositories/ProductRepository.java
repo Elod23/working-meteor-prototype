@@ -42,5 +42,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	Product findByReviews(List<Review> reviews);
 	
-	List<Product> findByReview(Review review);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.prototype.meteor.entities.Category;
+import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.repositories.CategoryRepository;
 
 
@@ -14,6 +15,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Override
+	public Category findById(Integer id) {
+		return categoryRepository.findByCategoryId(id);
+	}
+
 
 	public CategoryServiceImpl(CategoryRepository categoryRepository) {
 		super();
@@ -26,9 +33,16 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category update(Category category) {
-		categoryRepository.delete(category);
-		return categoryRepository.save(category);
+	public Category update(Integer id, Category category) {
+		Category changes = categoryRepository.getOne(id);
+		
+		if(category.getName() != null)
+			changes.setName(category.getName());
+		if(category.getDescription() != null)
+			changes.setDescription(category.getDescription());
+		changes.setCategoryId(id);
+		
+		return categoryRepository.save(changes);
 	}
 
 	@Override

@@ -21,8 +21,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name ="ShoppingCart")
 @Table(name="shoppingcarts")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ShoppingCart {
 
 	@Id
@@ -36,6 +40,7 @@ public class ShoppingCart {
 	
 	@NotNull
 	@Column(name = "cart_created")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yy")
 	private LocalDateTime cartCreated;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

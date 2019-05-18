@@ -19,7 +19,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
 
 	List<Address> findByStreetIgnoreCase(String streetName);
 
-	Address findByStreetAndNumberIgnoreCase(String streetName, int number);
+	Address findByStreetIgnoreCaseAndNumber(String streetName, int number);
 
 	List<Address> findByCountryAndRegion(String countryName, String regionName);
 

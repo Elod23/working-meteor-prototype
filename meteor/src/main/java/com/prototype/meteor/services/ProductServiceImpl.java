@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.prototype.meteor.entities.Category;
 import com.prototype.meteor.entities.Product;
 import com.prototype.meteor.entities.ProductHasCategory;
+import com.prototype.meteor.entities.Review;
 import com.prototype.meteor.entities.Supplier;
 import com.prototype.meteor.repositories.CategoryRepository;
 import com.prototype.meteor.repositories.ProductHasCategoryRepository;
@@ -38,19 +39,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	/*
-	 * Possible methods giving usability regards to Supplier.
-	 */
-	@Override
-	public List<Product> findBySupplier(Supplier supplier) {
-		return supplierRepository.findBySupplier(supplier);
-	}
-
-	/*
 	 * Possible methods giving usability regards to Category.
 	 */
 	@Override
 	public List<Product> getAllProductsByCategoryId(Integer categoryID) {
-		List<ProductHasCategory> productHasCategory = productHasCategoryRepository.findByCategoryID(categoryID);
+		List<ProductHasCategory> productHasCategory = productHasCategoryRepository.findByCategoryCategoryId(categoryID);
 		List<Product> productsForCategoryId = new ArrayList<>();
 		for (ProductHasCategory record : productHasCategory) {
 			productsForCategoryId.add(productRepository.getOne(record.getProduct().getProductId()));
@@ -65,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductHasCategory> records = new ArrayList<>();
 
 		for (Category category : categories) {
-			records.addAll(productHasCategoryRepository.findByCategoryID(category.getCategoryId()));
+			records.addAll(productHasCategoryRepository.findByCategoryCategoryId(category.getCategoryId()));
 		}
 		for (ProductHasCategory relation : records) {
 			productsByCategoryName.add(productRepository.getOne(relation.getProduct().getProductId()));
@@ -89,9 +82,28 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product update(Product product) {
-		productRepository.delete(productRepository.getOne(product.getProductId()));
-		return productRepository.save(product);
+	public Product update(Integer id, Product product) {
+		Product changes = productRepository.getOne(id);
+		
+		if(product.getName() != null)
+			changes.setName(product.getName());
+		if(product.getMeasurementUnit() !=  null)
+			changes.setMeasurementUnit(product.getMeasurementUnit());
+		if(product.getSecondaryMU() !=  null)
+			changes.setSecondaryMU(product.getSecondaryMU());
+		if(product.getPrice() != 0.0f)
+			changes.setPrice(product.getPrice());
+		if(product.getQuantity() != 0.0f)
+			changes.setQuantity(product.getQuantity());
+		if(product.getCotaTVA() != 0)
+			changes.setCotaTVA(product.getCotaTVA());
+		if(product.getProductDescription() != null)
+			changes.setProductDescription(product.getProductDescription());
+		if(product.getReviews() != null)
+			changes.getReviews().addAll(product.getReviews());
+		changes.setProductId(id);
+		
+		return productRepository.save(changes);
 	}
 
 	@Override
@@ -162,6 +174,22 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByProductDescription(descrip);
 	}
 
+	@Override
+	public List<Product> getAll() {
+		return productRepository.findAll();
+	}
+
+	@Override
+	public Product getById(Integer id) {
+		return productRepository.findByProductId(id);
+	}
+
+	@Override
+	public List<Review> findReviewsForProduct(Product product) {
+		return product.getReviews();
+	}
+
+	
 	
 
 }

@@ -9,8 +9,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "ProductHasCategory")
 @Table(name = "producthascategory")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ProductHasCategory {
 
 	@EmbeddedId
@@ -24,7 +27,7 @@ public class ProductHasCategory {
 	@MapsId("productId")
 	private Product product;
 	
-	
+	private ProductHasCategory() {};
 	
 	public ProductHasCategory(Category category, Product product) {
 		super();

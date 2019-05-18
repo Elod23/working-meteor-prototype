@@ -11,10 +11,12 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.prototype.meteor.entities.OrderedProduct;
 
 @Entity(name = "CartProduct")
 @Table(name = "cartProducts")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CartProduct {
 
 	@EmbeddedId

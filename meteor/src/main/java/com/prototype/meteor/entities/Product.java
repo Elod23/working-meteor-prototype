@@ -19,19 +19,22 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name="Product")
 @Table(name="products")
 @NaturalIdCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
 
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NaturalId
 	private Integer productId;
 	@NotNull
 	@Column(name = "name")
-	@NaturalId
 	private String name;
 	@NotNull
 	@Column(name = "measurement_unit")
