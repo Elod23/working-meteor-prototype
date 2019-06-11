@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.prototype.meteor.entities.Address;
-import com.prototype.meteor.entities.Order;
 import com.prototype.meteor.repositories.AddressRepository;
 
 @Service
-public class AddressServiceImpl implements AddressService{
+public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	private AddressRepository addressRepository;
-	
+
 	@Override
 	public Address findById(Integer id) {
 		return addressRepository.getOne(id);
@@ -36,10 +35,10 @@ public class AddressServiceImpl implements AddressService{
 			return null;
 		}
 		Address addressDb = addressRepository.getOne(id);
-		if (addressDb == null ) {
+		if (addressDb == null) {
 			return null;
 		}
-		
+
 		if (address.getCountry() != null) {
 			addressDb.setCountry(address.getCountry());
 		}
@@ -58,10 +57,7 @@ public class AddressServiceImpl implements AddressService{
 		if (address.getCustomer() != null) {
 			addressDb.setCustomer(address.getCustomer());
 		}
-		if(address.getOrdersWithBillingAddress() != null && address.getOrdersWithBillingAddress().size() == 0) {
-			addressDb.getOrdersWithBillingAddress().addAll(address.getOrdersWithBillingAddress());
-		}
-		
+
 		addressRepository.save(addressDb);
 		return addressDb;
 	}
@@ -70,11 +66,6 @@ public class AddressServiceImpl implements AddressService{
 	public Address delete(Address address) {
 		addressRepository.delete(address);
 		return address;
-	}
-
-	@Override
-	public List<Order> findOrdersBillingToAddress(Address address) {
-		return address.getOrdersWithBillingAddress();
 	}
 
 }

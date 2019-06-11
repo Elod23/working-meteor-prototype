@@ -10,9 +10,7 @@ import com.prototype.meteor.domain.CustomerDTO;
 import com.prototype.meteor.entities.Address;
 import com.prototype.meteor.entities.Customer;
 import com.prototype.meteor.entities.GenericBuilder;
-import com.prototype.meteor.entities.Order;
 import com.prototype.meteor.entities.Review;
-import com.prototype.meteor.entities.ShoppingCart;
 import com.prototype.meteor.repositories.CustomerRepository;
 
 @Service
@@ -101,15 +99,11 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customer.getAddress() != null) {
 			changedCustomer.setAddress(customer.getAddress());
 		}
-		if (customer.getOrders() != null) {
-			changedCustomer.getOrders().addAll(customer.getOrders());
-		}
+
 		if (customer.getReviews() != null) {
 			changedCustomer.getReviews().addAll(customer.getReviews());
 		}
-		if (customer.getShoppingCart() != null) {
-			changedCustomer.setShoppingCart(customer.getShoppingCart());
-		}
+
 		changedCustomer.setCustomerId(id);
 
 		return changedCustomer;
@@ -132,28 +126,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ShoppingCart findCartForCustomer(Customer customer) {
-		return customer.getShoppingCart();
-	}
-
-	@Override
-	public Customer findByShoppingCart(ShoppingCart shoppingCart) {
-		return customerRepository.findByShoppingCart(shoppingCart);
-	}
-
-	@Override
-	public List<Order> findOrdersForCustomer(Customer customer) {
-		return customer.getOrders();
-	}
-
-	@Override
 	public List<Review> findReviewsForCustomer(Customer customer) {
 		return customer.getReviews();
-	}
-
-	public Customer resetShoppingCartAfterCheckout(Customer customer) {
-		customer.setShoppingCart(null);
-		return customer;
 	}
 
 }
