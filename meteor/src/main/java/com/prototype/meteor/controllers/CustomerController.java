@@ -3,6 +3,7 @@ package com.prototype.meteor.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,52 +17,52 @@ import com.prototype.meteor.services.CustomerService;
 
 @RestController
 @RequestMapping("/customers")
-public class CustomerController {
+public class CustomerController implements BaseResource{
 	
 	@Autowired
 	private CustomerService customerService;
 	
 	@ResponseBody
 	@RequestMapping(path = "/details", method = RequestMethod.GET)
-	public List<Customer> getAllCustomerDetails() {
-		return customerService.findAll();
+	public ResponseEntity getAllCustomerDetails() {
+		return wrapOrNotFound(customerService.findAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/logins", method = RequestMethod.GET)
-	public List<CustomerDTO> getAllCustomerLogins() {
-		return customerService.findAllForDisplay();
+	public ResponseEntity getAllCustomerLogins() {
+		return wrapOrNotFound(customerService.findAllForDisplay());
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.POST)
-	public CustomerDTO createCustomerLogin(Customer customer) {
-		return customerService.saveLogin(customer);
+	public ResponseEntity createCustomerLogin(Customer customer) {
+		return wrapOrNotFound(customerService.saveLogin(customer));
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}/details", method = RequestMethod.GET)
-	public Customer showCustomerDetails(@PathVariable Integer id) {
-		return customerService.findById(id);
+	public ResponseEntity showCustomerDetails(@PathVariable Integer id) {
+		return wrapOrNotFound(customerService.findById(id));
 	}
 
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public CustomerDTO showCustomerLogin(@PathVariable Integer id) {
-		return customerService.getCustomerForDisplay(customerService.findById(id));
+	public ResponseEntity showCustomerLogin(@PathVariable Integer id) {
+		return wrapOrNotFound(customerService.getCustomerForDisplay(customerService.findById(id)));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public Customer updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
-		return customerService.update(id, customer);
+	public ResponseEntity updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
+		return wrapOrNotFound(customerService.update(id, customer));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public Customer deleteCustomer(@PathVariable Integer id) {
-		return customerService.delete(customerService.findById(id));
+	public ResponseEntity deleteCustomer(@PathVariable Integer id) {
+		return wrapOrNotFound(customerService.delete(customerService.findById(id)));
 	}
 	
 

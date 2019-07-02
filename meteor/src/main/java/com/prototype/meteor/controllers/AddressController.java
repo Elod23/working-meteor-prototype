@@ -1,8 +1,8 @@
 package com.prototype.meteor.controllers;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,31 +15,31 @@ import com.prototype.meteor.services.AddressService;
 
 @RestController
 @RequestMapping("/addresses")
-public class AddressController {
+public class AddressController implements BaseResource{
 	@Autowired
 	private AddressService addressService;
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public List<Address> getAll(){
-		return addressService.findAll();
+	public ResponseEntity getAll(){
+		return wrapOrNotFound(addressService.findAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.POST)
-	public Address createAddress(Address address) {
-		return addressService.save(address);
+	public ResponseEntity createAddress(Address address) {
+		return wrapOrNotFound(addressService.save(address));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public Address showAddress(@PathVariable Integer id) {
-		return addressService.findById(id);
+	public ResponseEntity showAddress(@PathVariable Integer id) {
+		return wrapOrNotFound(addressService.findById(id));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public Address updateAddress(@PathVariable Integer id, @RequestBody Address address) {
+	public ResponseEntity updateAddress(@PathVariable Integer id, @RequestBody Address address) {
 		Address addressDb = addressService.findById(id);
 		if(addressDb == null)
 			return null;
@@ -66,13 +66,13 @@ public class AddressController {
 		}
 		addressDb.setAddressId(id);
 		addressService.save(addressDb);
-		return address;
+		return wrapOrNotFound(address);
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public Address deleteAddress(@PathVariable Integer id) {
-		return addressService.delete(addressService.findById(id));
+	public ResponseEntity deleteAddress(@PathVariable Integer id) {
+		return wrapOrNotFound(addressService.delete(addressService.findById(id)));
 	}
 	
 }

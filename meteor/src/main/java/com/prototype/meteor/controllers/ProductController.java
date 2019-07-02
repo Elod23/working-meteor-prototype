@@ -3,6 +3,7 @@ package com.prototype.meteor.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,39 +18,39 @@ import com.prototype.meteor.services.ProductService;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController implements BaseResource{
 
 	@Autowired
 	private ProductService productService;
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public List<Product> getAllProducts() {
-		return productService.getAll();
+	public ResponseEntity getAllProducts() {
+		return wrapOrNotFound(productService.getAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.POST)
-	public Product createProduct(Product product) {
-		return productService.save(product);
+	public ResponseEntity createProduct(Product product) {
+		return wrapOrNotFound(productService.save(product));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public Product showProduct(@PathVariable Integer id) {
-		return productService.getById(id);
+	public ResponseEntity showProduct(@PathVariable Integer id) {
+		return wrapOrNotFound(productService.getById(id));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public Product deleteProduct(@PathVariable Integer id) {
-		return productService.delete(productService.getById(id));
+	public ResponseEntity deleteProduct(@PathVariable Integer id) {
+		return wrapOrNotFound(productService.delete(productService.getById(id)));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public Product updateProduct(@PathVariable Integer id, @RequestBody Product product) {
-		return productService.update(id, product);
+	public ResponseEntity updateProduct(@PathVariable Integer id, @RequestBody Product product) {
+		return wrapOrNotFound(productService.update(id, product));
 	}
 	
 }

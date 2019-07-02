@@ -3,6 +3,7 @@ package com.prototype.meteor.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,32 +19,32 @@ import com.prototype.meteor.services.SupplierService;
 
 @RestController
 @RequestMapping("/suppliers")
-public class SupplierController {
+public class SupplierController implements BaseResource{
 	
 	@Autowired
 	private SupplierService supplierService;
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public List<SupplierDTO> getAllSuppliers(){
-		return supplierService.findAll();
+	public ResponseEntity getAllSuppliers(){
+		return wrapOrNotFound(supplierService.findAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/", method = RequestMethod.POST)
-	public Supplier createSupplier(SupplierDTO supplier){
-		return supplierService.save(supplier);
+	public ResponseEntity createSupplier(SupplierDTO supplier){
+		return wrapOrNotFound(supplierService.save(supplier));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public SupplierDTO showSupplier(@PathVariable Integer id) {
-		return supplierService.findByIdThenConvert(id);
+	public ResponseEntity showSupplier(@PathVariable Integer id) {
+		return wrapOrNotFound(supplierService.findByIdThenConvert(id));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-	public SupplierDTO updateSupplier(@PathVariable Integer id, @RequestBody SupplierDTO supplier) {
+	public ResponseEntity updateSupplier(@PathVariable Integer id, @RequestBody SupplierDTO supplier) {
 		SupplierDTO supplierDb = supplierService.findByIdThenConvert(id);
 		if(supplier.getCUI() == null)
 			supplier.setCUI(supplierDb.getCUI());
@@ -58,19 +59,19 @@ public class SupplierController {
 									.with(Supplier::setcUI, supplier.getCUI())
 									.with(Supplier::setSupplierLogoURL, supplier.getLogoURL())
 									.build();
-		return supplierService.update(id, updatedSupplier);
+		return wrapOrNotFound(supplierService.update(id, updatedSupplier));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public Supplier deleteSupplier(@PathVariable Integer id) {
-		return supplierService.delete(supplierService.findById(id));
+	public ResponseEntity deleteSupplier(@PathVariable Integer id) {
+		return wrapOrNotFound(supplierService.delete(supplierService.findById(id)));
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/{id}/products", method = RequestMethod.GET)
-	public List<Product> getAllProductsOfSupplier(@PathVariable Integer id){
-		return supplierService.findById(id).getProducts();
+	public ResponseEntity getAllProductsOfSupplier(@PathVariable Integer id){
+		return wrapOrNotFound(supplierService.findById(id).getProducts());
 	}
 	
 }
