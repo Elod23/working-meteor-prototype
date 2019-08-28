@@ -54,6 +54,19 @@ public class Product {
 	@Column(name = "product_description")
 	private String productDescription;
 	
+	@Column(name = "imageurl")
+	private String imageUrl;
+	
+	
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Review> reviews = new ArrayList<>();
 
